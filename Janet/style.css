@@ -1,0 +1,83 @@
+body {
+	font-family: "Direct Gothic";
+	margin:0px;
+	padding: 0px;
+}
+
+h1 {
+	margin: 10px 0px;
+}
+
+#container {
+	margin: 0 auto;
+	position: relative;
+	width: 1920px;
+	height: 1080px;
+}
+
+#left {
+	width:1600px;
+	height:1080px;
+	float:left;
+}
+
+#screen {
+	width: 1600px;
+	height: 900px;
+	float: left;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#underbar {
+	width: 1580px;
+	height: 160px;
+	float:left;
+	color: white;
+	padding: 10px;
+}
+
+#sidebar {
+	width: 300px;
+	height: 1060px;
+	float: left;
+	color: white;
+	padding:10px;
+}
+
+#tweetDiv {
+	width: 300px;
+	margin: 0 auto;
+	position: absolute;
+	bottom: 0;
+}
+
+.newTweet {
+	width: 250px;
+	background-color: #8E7DFF;
+	border: 0px solid;
+	padding: 5px 10px;
+	margin: 15px auto;
+}
+
+.twitterHandleHeader {
+	margin: 5px 5px;
+}
+
+.tweetContentsDiv {
+	margin: 5px;
+}
+
+#tweetHeader {
+	width: 280px;
+	padding: 10px;
+}
+
+#tweetHeaderText {
+}
+
+#tweetsContainer {
+	position: absolute;
+	max-height: 1000px;
+	bottom: 5px;
+}
