@@ -9,10 +9,21 @@ import requests
 
 PORT_NUMBER = 8080
 
+HTTPRequestURL = "http://172.16.0.155:8080/tv/getTuned"
+
 consumer_key="kaUQzVdfjgdyy2FnywobjvQnS"
 consumer_secret="IH2KqmlIrhqVTptXgCmhBIVFdEu2sbRTvuYIN9MK2x1fiuqYAD"
 access_token="2338788337-tg2kKAvBGrcc9db6IaKyVE10P1Un49b7I5PTUpf"
 access_token_secret="Z7vRhlbmPAqjB1cS40CsltapeaeEdJzAoMsq7X0zoRZAN"
+
+# query for tv hashtag
+response = requests.get(HTTPRequestURL)
+hashtag = 'tv'
+if 'title' in response.json().keys():
+	hashtag = response.json()['title'].replace(' ','')
+else:
+	hashtag = response.json()['tv']
+
 
 
 templateHTML = """
@@ -25,29 +36,6 @@ templateHTML = """
 	      VideoSource.setInputOutputWindow(0, 0, 1920, 1080, 0, 0, 1600, 900);
 	    </script>
 	    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
-      <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-      <style>
-  .ui-widget {
-    font-size: 11px;
-  }
-  .dialog-drop-shadow {
-    -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-  }
-  #tabs.ui-widget-content {
-    border: none;
-  }
-  .ui-tabs .ui-tabs-panel {
-    background-color: #ffffff;
-  }
-  .ui-datepicker-trigger {
-    vertical-align: bottom;
-    margin-bottom: 2px;
-    margin-left: 2px;
-  }
-</style>
 	</head>
 
 	<body>
@@ -56,12 +44,18 @@ templateHTML = """
 				<div id="screen">
 	  			</div>
 	  			<div id="underbar">
-
+	  					<div id="logo">
+	  					</div>
+	  					<div id="gradient">
+	  							<div id="scale">
+	  							</div>
+	  					</div>
 	  			</div>
 			</div>
 	  		<div id="sidebar">
 	  			<div id="tweetHeader">
 	  				<h1 id="tweetHeaderText">
+	  				#""" + hashtag + """
 	  				</h1>
 	  			</div>
 	  			<div id="tweetsContainer">
@@ -70,24 +64,11 @@ templateHTML = """
 	  	</div>
 	</body>
 
-<script type="text/javascript" src="Highcharts-4.0.4/js/highcharts.js"></script>
-
-<!-- Javascript source -->
-
-<!-- Define all the config and global variables first -->
-<script type="text/javascript" src="draw.js"></script>
-<script type="text/javascript" src="global-var.js"></script>
-<script type="text/javascript" src="html.js"></script>
-<script type="text/javascript" src="example.js">
-</script>
-
-<script type="text/javascript" src="timeline.js">
-</script>
 
 	<script type="text/javascript" src="http://altstudentsuccess.com/localhost/d3.min.js"></script>
   <script type="text/javascript" src="http://altstudentsuccess.com/localhost/tweet.js"></script>
 	<script type="text/javascript" src="http://altstudentsuccess.com/localhost/updateSidebar.js"></script>
-	<script type="text/javascript" src="http://altstudentsuccess.com/localhost//updateBottom.js"></script>
+	<script type="text/javascript" src="http://altstudentsuccess.com/localhost/updateBottom.js"></script>
 
 	<script type='text/javascript'>
 	  console.log("My javascript! - Andrew");
@@ -117,6 +98,7 @@ templateHTML = """
 	    	}
 	    	});
     }
+
     var intervalID = setInterval(newTweetFunc, 5000);
 	</script>
 </html>
@@ -139,7 +121,7 @@ class streamThread (threading.Thread):
 		auth.set_access_token(access_token, access_token_secret)
 		stream = Stream(auth, l)
 		print "About to start Stream"
-		stream.filter(track=['gonegirl'])
+		stream.filter(track=[hashtag])
 		#time.sleep(5)
 
 class tvHandler (BaseHTTPRequestHandler):
