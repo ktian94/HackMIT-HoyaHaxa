@@ -1,6 +1,6 @@
 body {
 	font-family: "Direct Gothic";
-	margin:0px;
+	margin: 0px;
 	padding: 0px;
 }
 
@@ -40,6 +40,7 @@ h1 {
 #sidebar {
 	width: 300px;
 	height: 1060px;
+	background-color: black;
 	float: left;
 	color: white;
 	padding:10px;
@@ -69,15 +70,22 @@ h1 {
 }
 
 #tweetHeader {
+	position:absolute;
+	top: 0px;
 	width: 280px;
 	padding: 10px;
+	z-index: 2;
+	text-align: center;
+	background-color:black;
 }
 
 #tweetHeaderText {
+
 }
 
 #tweetsContainer {
 	position: absolute;
-	max-height: 1000px;
+	/*max-height: 1000px;*/
 	bottom: 5px;
+	z-index:1;
 }

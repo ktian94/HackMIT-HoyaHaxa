@@ -1,35 +1,43 @@
 var tweets = [];
+var curTweetIndex = 0;
 
 var sidebar = document.getElementById("sidebar");
 var underbar = document.getElementById("underbar");
-underbar.innerHTML = "OTHER STUFF GOES HERE";
+var tweetDiv = document.getElementById('tweetsContainer');
+//underbar.innerHTML = "OTHER STUFF GOES HERE";
 
-var hashtag = '#hackMIT';
 var tweetHeaderText = document.getElementById('tweetHeaderText');
-tweetHeaderText.innerHTML = hashtag;
 
-function getJSONs(){
-    //Retrieves data from Twitter
-    try {
-        
-    } catch(err){
-        console.error('Check your internet connection!');
-    }
+// $.ajax({
+//     "url": "http://172.16.0.155:8080/tv/getTuned",
+//     "crossDomain": true,
+//     "dataType": "jsonp"
+// });
+addHashtag("#hi");
+
+function addHashtag(hashtag) {
+	tweetHeaderText.innerHTML = hashtag;
 }
 
-tweets[0] = new Tweet('janetzoo', 'url', 'tweet tweet tweet tweet tweet tweet #hackMIT', 0.7);
-tweets[1] = new Tweet('ktian94', 'url', 'testing #nodejs #hackMIT', 0.9);
-tweets[2] = new Tweet('AndrewsTwitter', 'url', 'i like to eat eat eat apples and bananas #hackMIT', 0);
-tweets[3] = new Tweet('JordanIsKing', 'url', 'I\'m hungry #hackmit', -0.5);
+function addTweet(handle, contents, sentiment) {
+	tweets[curTweetIndex] = new Tweet(handle, contents, sentiment);
+	updateTweets(curTweetIndex);
+	curTweetIndex++;
+}
 
-for(var n = 4; n < 15; n++){
+tweets[0] = new Tweet('janetzoo', 'tweet tweet tweet tweet tweet tweet tweet tweet #hackMIT', 0.7);
+updateTweets(0);
+tweets[1] = new Tweet('ktian94', 'testing #nodejs #hackMIT', 0.9);
+updateTweets(1);
+tweets[2] = new Tweet('AndrewsTwitter', 'i like to eat eat eat apples and bananas #hackMIT', 0);
+tweets[3] = new Tweet('JordanIsKing', 'I\'m hungry #hackmit', -0.5);
+
+for(var n = 4; n < 12; n++){
 	tweets[n] = new Tweet('JordanIsKing', 'url', 'I\'m hungry #hackmit', -0.5);
 }
 
-var tweetDiv = document.getElementById('tweetsContainer');
-
-for (var i = 0; i < tweets.length; i++) {
-	var curTweet = tweets[i];
+function updateTweets(index) {
+	var curTweet = tweets[index];
 
 	var newTweet = document.createElement("DIV");
 	newTweet.className = 'newTweet';
@@ -45,7 +53,7 @@ for (var i = 0; i < tweets.length; i++) {
 	tweetContentsDiv.appendChild(tweetContents);
 	newTweet.appendChild(tweetContentsDiv);
 	tweetDiv.appendChild(newTweet);
-};
+}
 
 function getSentimentColor(sentimentValue) {
 	var color = d3.scale.linear()
