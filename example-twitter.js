@@ -17,7 +17,7 @@ t.on('error', function (err) {
   console.log('Oh no')
 })
 
-t.track('gameofthrones')
+t.track('monstersuniversity')
 
 var http = require('http');
 http.createServer(function (req, res) {
